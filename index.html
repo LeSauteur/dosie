@@ -791,14 +791,32 @@
             return null;
         }
 
-        function getCardStatus(office) {
-            const hasOffice = office.hasOffice.toLowerCase() === 'да';
-            const hasRoscom = office.roscomnadzor.toLowerCase() === 'да';
-            const hasRosfin = office.rosfinmonitoring.toLowerCase() === 'да';
-            
-            if (!hasOffice) return { class: 'status-danger', text: 'Нет офиса' };
-            if (!hasRoscom || !hasRosfin) return { class: 'status-warning', text: 'Нет проверок' };
-            return { class: 'status-ok', text: 'Всё ок' };
+       function normalize(val) {
+    return (val || '').toString().toLowerCase().trim();
+}
+
+function getCardStatus(office) {
+    const hasOffice = normalize(office.hasOffice) === 'да';
+    const hasRoscom = normalize(office.roscomnadzor) === 'да';
+    const hasRosfin = normalize(office.rosfinmonitoring) === 'да';
+
+    // Нет физического офиса
+    if (!hasOffice) {
+        return { class: 'status-danger', text: 'Нет офиса' };
+    }
+
+    // Нет регистраций вообще
+    if (!hasRoscom && !hasRosfin) {
+        return { class: 'status-warning', text: 'Нет регистраций' };
+    }
+
+    // Зарегистрированы не везде
+    if (!hasRoscom || !hasRosfin) {
+        return { class: 'status-warning', text: 'Неполная регистрация' };
+    }
+
+    // Всё оформлено
+    return { class: 'status-ok', text: 'Всё оформлено' };
         }
 
         function updateStats(data) {
