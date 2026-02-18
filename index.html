@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Каталог офисов сети</title>
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --primary-hover: #1d4ed8;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-secondary: #64748b;
+            --border-color: #e2e8f0;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
+            --radius: 12px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding-bottom: 40px;
+        }
+
+        /* Header */
+        header {
+            background: var(--card-bg);
+            padding: 2rem 1rem;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 2rem;
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 0.5rem;
+        }
+
+        p.subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Grid */
+        .offices-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        /* Card */
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            cursor: pointer;
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--primary-color);
+        }
+
+        .card-image {
+            height: 200px;
+            width: 100%;
+            object-fit: cover;
+            background-color: #eee;
+        }
+
+        .card-content {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-main);
+        }
+
+        .card-owner {
+            font-size: 0.95rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .card-address {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .card-stats {
+            margin-top: auto;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .stat-item strong {
+            color: var(--text-main);
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            width: 90%;
+            max-width: 900px;
+            max-height: 90vh;
+            border-radius: var(--radius);
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            transform: scale(0.95);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-main);
+            z-index: 10;
+            transition: var(--transition);
+        }
+
+        .modal-close:hover {
+            background: #fff;
+            color: var(--primary-color);
+            transform: rotate(90deg);
+        }
+
+        /* Modal Gallery */
+        .modal-gallery {
+            height: 350px;
+            width: 100%;
+            background: #000;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .modal-gallery img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .gallery-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.7);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .gallery-nav:hover {
+            background: #fff;
+        }
+
+        .gallery-prev { left: 1rem; }
+        .gallery-next { right: 1rem; }
+
+        /* Modal Body */
+        .modal-body {
+            padding: 2rem;
+        }
+
+        .modal-header-info {
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1rem;
+        }
+
+        .modal-title {
+            font-size: 1.8rem;
+            color: var(--text-main);
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-owner {
+            font-size: 1.1rem;
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+
+        /* Info Grid */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .info-item {
+            background: #f8fafc;
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .info-label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.25rem;
+            font-weight: 600;
+        }
+
+        .info-value {
+            font-size: 1rem;
+            color: var(--text-main);
+            font-weight: 500;
+            word-break: break-word;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 99px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .status-yes { background: #dcfce7; color: #166534; }
+        .status-no { background: #fee2e2; color: #991b1b; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .modal-content {
+                width: 100%;
+                height: 100%;
+                max-height: 100%;
+                border-radius: 0;
+            }
+            
+            .modal-gallery {
+                height: 250px;
+            }
+
+            .modal-body {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>Офисы сети</h1>
+            <p class="subtitle">Реестр франшизных партнеров и их реквизиты</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <div id="offices-grid" class="offices-grid">
+            <!-- Cards will be injected here via JS -->
+        </div>
+    </main>
+
+    <!-- Modal Template -->
+    <div id="modal-overlay" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            
+            <div class="modal-gallery">
+                <button class="gallery-nav gallery-prev" onclick="changeImage(-1)">&#10094;</button>
+                <img id="modal-img" src="" alt="Office Photo">
+                <button class="gallery-nav gallery-next" onclick="changeImage(1)">&#10095;</button>
+            </div>
+
+            <div class="modal-body">
+                <div class="modal-header-info">
+                    <h2 id="modal-title" class="modal-title"></h2>
+                    <div id="modal-owner" class="modal-owner"></div>
+                </div>
+
+                <div id="modal-details" class="info-grid">
+                    <!-- Details injected here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Data extracted from the provided Excel file
+        const officesData = [
+            {
+                id: 1,
+                name: "Квартал",
+                owner: "ИП Алиева Зухра Рахитовна",
+                inn: "662104294378",
+                address: "Г. Аксай Ул. Толпинского 130, офис 4",
+                bankDetails: "рс 40802810617910000381, АО \"АЛЬФА-БАНК\"",
+                cashRegister: "нет",
+                accountant: "нет",
+                roscomnadzor: "да",
+                rosfinmonitoring: "да",
+                agents: 4,
+                admin: "нет",
+                lastVisit: "10/24/25",
+                hasOffice: "да"
+            },
+            {
+                id: 2,
+                name: "Домиан Добровольского",
+                owner: "ИП Баев Денис Владимирович",
+                inn: "616613990495",
+                address: "Ростов-на-Дону, Добровольского 13",
+                bankDetails: "р/с 40802810126300001829 Филиал Ростовский АО Альфа-Банк",
+                cashRegister: "нет",
+                accountant: "нет",
+                roscomnadzor: "нет данных",
+                rosfinmonitoring: "нет данных",
+                agents: "нет данных",
+                admin: "нет данных",
+                lastVisit: "9/24/25",
+                hasOffice: "нет данных"
+            },
+            {
+                id: 3,
+                name: "Домиан-Шолохова",
+                owner: "ИП Баранова Ольга Борисовна",
+                inn: "616710699958",
+                address: "Ростов-на-Дону, 14 линия 84 «б»",
+                bankDetails: "40802810620000525411 в ООО «Банк Точка»",
+                cashRegister: "нет",
+                accountant: "да",
+                roscomnadzor: "да",
+                rosfinmonitoring: "да",
+                agents: 2,
+                admin: "нет",
+                lastVisit: "10/23/25",
+                hasOffice: "да"
+            },
+            {
+                id: 4,
+                name: "Батайск 2",
+                owner: "ИП Брагин Андрей Владимирович",
+                inn: "614102148704",
+                address: "г. Батайск , ул. Куйбышева 127",
+                bankDetails: "р/с 40802810747070000030 Филиал «ЮЖНЫЙ» ПАО «БАНК УРАЛСИБ»",
+                cashRegister: "нет",
+                accountant: "да",
+                roscomnadzor: "нет",
+                rosfinmonitoring: "нет",
+                agents: 5,
+                admin: "да",
+                lastVisit: "нет данных",
+                hasOffice: "да"
+            },
+            {
+                id: 5,
+                name: "Домиан «Семейный»",
+                owner: "ИП Брыкалина Лилия Евгеньевна",
+                inn: "615101072300",
+                address: "Батайск, заводская 184 оф 22",
+                bankDetails: "40817810852096798456 Юго-Западный Банк ПАО Сбербанк",
+                cashRegister: "да",
+                accountant: "да",
+                roscomnadzor: "да",
+                rosfinmonitoring: "да",
+                agents: 7,
+                admin: "нет",
+                lastVisit: "нет данных",
+                hasOffice: "да"
+            },
+            {
+                id: 6,
+                name: "Шахты на Маяковского",
+                owner: "ИП Воронина Мария Петровна",
+                inn: "262810552536",
+                address: "г. Шахты, ул. Маяковского 18А",
+                bankDetails: "р/с 40802810352090442239 Юго-Западный банк ПАО Сбербанк",
+                cashRegister: "нет",
+                accountant: "да",
+                roscomnadzor: "нет",
+                rosfinmonitoring: "нет",
+                agents: 19,
+                admin: "да",
+                lastVisit: "11/25/25",
+                hasOffice: "да"
+            }
+        ];
+
+        // Placeholder images array
+        const placeholders = [
+            "https://placehold.co/600x400?text=Office+1",
+            "https://placehold.co/600x400?text=Office+2",
+            "https://placehold.co/600x400?text=Office+3",
+            "https://placehold.co/600x400?text=Office+4",
+            "https://placehold.co/600x400?text=Office+5"
+        ];
+
+        let currentModalOffice = null;
+        let currentImageIndex = 0;
+
+        // Helper to handle empty data
+        function getValue(value) {
+            if (value === null || value === undefined || value === "" || value === " ") {
+                return "нет данных";
+            }
+            return value;
+        }
+
+        // Render Cards
+        function renderCards() {
+            const grid = document.getElementById('offices-grid');
+            grid.innerHTML = '';
+
+            officesData.forEach((office, index) => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.onclick = () => openModal(index);
+
+                // Shorten address for card view
+                const shortAddress = office.address.length > 40 
+                    ? office.address.substring(0, 40) + '...' 
+                    : office.address;
+
+                card.innerHTML = `
+                    <img src="${placeholders[index % placeholders.length]}" alt="${office.name}" class="card-image">
+                    <div class="card-content">
+                        <h3 class="card-title">${getValue(office.name)}</h3>
+                        <div class="card-owner">${getValue(office.owner)}</div>
+                        <div class="card-address">${getValue(shortAddress)}</div>
+                        <div class="card-stats">
+                            <span class="stat-item">Агентов: <strong>${getValue(office.agents)}</strong></span>
+                            <span class="stat-item">Офис: <strong>${getValue(office.hasOffice)}</strong></span>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // Modal Logic
+        function openModal(index) {
+            currentModalOffice = officesData[index];
+            currentImageIndex = 0; // Reset image index
+            
+            const overlay = document.getElementById('modal-overlay');
+            const img = document.getElementById('modal-img');
+            const title = document.getElementById('modal-title');
+            const owner = document.getElementById('modal-owner');
+            const details = document.getElementById('modal-details');
+
+            // Set Header Info
+            title.textContent = getValue(currentModalOffice.name);
+            owner.textContent = getValue(currentModalOffice.owner);
+            
+            // Set Initial Image
+            updateGalleryImage();
+
+            // Generate Details Grid
+            const fields = [
+                { label: "ИНН", value: currentModalOffice.inn },
+                { label: "Адрес офиса", value: currentModalOffice.address },
+                { label: "Банковские реквизиты", value: currentModalOffice.bankDetails },
+                { label: "Кассовый аппарат", value: currentModalOffice.cashRegister, isStatus: true },
+                { label: "Бухгалтер", value: currentModalOffice.accountant, isStatus: true },
+                { label: "Роскомнадзор", value: currentModalOffice.roscomnadzor, isStatus: true },
+                { label: "Росфинмониторинг", value: currentModalOffice.rosfinmonitoring, isStatus: true },
+                { label: "Администратор", value: currentModalOffice.admin, isStatus: true },
+                { label: "Посещение франшизой", value: currentModalOffice.lastVisit },
+                { label: "Физ. наличие офиса", value: currentModalOffice.hasOffice, isStatus: true }
+            ];
+
+            let detailsHTML = '';
+            fields.forEach(field => {
+                const val = getValue(field.value);
+                let displayVal = val;
+
+                // Add badge styling for Yes/No fields
+                if (field.isStatus) {
+                    if (val.toLowerCase() === 'да') {
+                        displayVal = `<span class="status-badge status-yes">Да</span>`;
+                    } else if (val.toLowerCase() === 'нет') {
+                        displayVal = `<span class="status-badge status-no">Нет</span>`;
+                    } else {
+                        displayVal = `<span style="color: #999">${val}</span>`;
+                    }
+                }
+
+                detailsHTML += `
+                    <div class="info-item">
+                        <div class="info-label">${field.label}</div>
+                        <div class="info-value">${displayVal}</div>
+                    </div>
+                `;
+            });
+
+            details.innerHTML = detailsHTML;
+
+            // Show Modal
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Prevent scrolling
+        }
+
+        function closeModal() {
+            const overlay = document.getElementById('modal-overlay');
+            overlay.classList.remove('active');
+            document.body.style.overflow = 'auto'; // Restore scrolling
+        }
+
+        // Gallery Logic
+        function updateGalleryImage() {
+            const img = document.getElementById('modal-img');
+            // Use office ID to vary the placeholder slightly or just cycle
+            // For demo, we cycle the global placeholders based on index
+            img.src = placeholders[currentImageIndex]; 
+        }
+
+        function changeImage(direction) {
+            currentImageIndex += direction;
+            if (currentImageIndex >= placeholders.length) currentImageIndex = 0;
+            if (currentImageIndex < 0) currentImageIndex = placeholders.length - 1;
+            updateGalleryImage();
+        }
+
+        // Close modal on outside click
+        document.getElementById('modal-overlay').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', renderCards);
+
+    </script>
+</body>
+</html>
