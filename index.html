@@ -33,7 +33,6 @@
             padding-bottom: 40px;
         }
 
-        /* Header */
         header {
             background: var(--card-bg);
             padding: 2rem 1rem;
@@ -54,21 +53,18 @@
             font-size: 1.1rem;
         }
 
-        /* Container */
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 1rem;
         }
 
-        /* Grid */
         .offices-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 2rem;
         }
 
-        /* Card */
         .card {
             background: var(--card-bg);
             border-radius: var(--radius);
@@ -139,7 +135,6 @@
             color: var(--text-main);
         }
 
-        /* Modal */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -203,7 +198,6 @@
             transform: rotate(90deg);
         }
 
-        /* Modal Gallery */
         .modal-gallery {
             height: 350px;
             width: 100%;
@@ -245,7 +239,6 @@
         .gallery-prev { left: 1rem; }
         .gallery-next { right: 1rem; }
 
-        /* Modal Body */
         .modal-body {
             padding: 2rem;
         }
@@ -268,7 +261,6 @@
             font-weight: 500;
         }
 
-        /* Info Grid */
         .info-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -309,7 +301,6 @@
         .status-yes { background: #dcfce7; color: #166534; }
         .status-no { background: #fee2e2; color: #991b1b; }
 
-        /* Responsive */
         @media (max-width: 768px) {
             .modal-content {
                 width: 100%;
@@ -338,12 +329,9 @@
     </header>
 
     <main class="container">
-        <div id="offices-grid" class="offices-grid">
-            <!-- Cards will be injected here via JS -->
-        </div>
+        <div id="offices-grid" class="offices-grid"></div>
     </main>
 
-    <!-- Modal Template -->
     <div id="modal-overlay" class="modal-overlay">
         <div class="modal-content">
             <button class="modal-close" onclick="closeModal()">&times;</button>
@@ -360,15 +348,12 @@
                     <div id="modal-owner" class="modal-owner"></div>
                 </div>
 
-                <div id="modal-details" class="info-grid">
-                    <!-- Details injected here -->
-                </div>
+                <div id="modal-details" class="info-grid"></div>
             </div>
         </div>
     </div>
 
     <script>
-        // Data extracted from the provided Excel file
         const officesData = [
             {
                 id: 1,
@@ -423,7 +408,7 @@
                 name: "Батайск 2",
                 owner: "ИП Брагин Андрей Владимирович",
                 inn: "614102148704",
-                address: "г. Батайск , ул. Куйбышева 127",
+                address: "г. Батайск, ул. Куйбышева 127",
                 bankDetails: "р/с 40802810747070000030 Филиал «ЮЖНЫЙ» ПАО «БАНК УРАЛСИБ»",
                 cashRegister: "нет",
                 accountant: "да",
@@ -465,10 +450,953 @@
                 admin: "да",
                 lastVisit: "11/25/25",
                 hasOffice: "да"
+            },
+            {
+                id: 7,
+                name: "Домиан Коммерция",
+                owner: "ИП Шаповалов Виктор Юрьевич",
+                inn: "614105200744",
+                address: "ул. Береговая 6 (ТЦ Белый Ангел)",
+                bankDetails: "Расчётный счёт: 40802810652740004711; ЮГО-ЗАПАДНЫЙ БАНК ПАО СБЕРБАНК БИК 046015602",
+                cashRegister: "нет",
+                accountant: "нет",
+                roscomnadzor: "нет",
+                rosfinmonitoring: "нет",
+                agents: 0,
+                admin: "нет",
+                lastVisit: "нет данных",
+                hasOffice: "нет"
+            },
+            {
+                id: 8,
+                name: "Гвардейский",
+                owner: "ИП Грибенюк Светлана Леонидовна",
+                inn: "615416655175",
+                address: "Ростов-на-Дону, Буденновский, 59",
+                bankDetails: "р/с 40802810826140006274 ФИЛИАЛ \"РОСТОВСКИЙ\" АО \"АЛЬФА-БАНК\"",
+                cashRegister: "нет данных",
+                accountant: "да",
+                roscomnadzor: "нет данных",
+                rosfinmonitoring: "нет данных",
+                agents: "нет данных",
+                admin: "нет данных",
+                lastVisit: "нет данных",
+                hasOffice: "нет данных"
+            },
+            {
+                id: 9,
+                name: "Аксай Центральный",
+                owner: "ИП Гуков Денис Иванович",
+                inn: "616111710000",
+                address: "Аксай, заводская 22",
+                bankDetails: "40802810600000548499, АО «ТБанк», БИК 044525974",
+                cashRegister: "нет данных",
+                accountant: "нет данных",
+                roscomnadzor: "нет данных",
+                rosfinmonitoring: "нет данных",
+                agents: 10,
+                admin: "нет данных",
+                lastVisit: "10/24/25",
+                hasOffice: "нет данных"
+            },
+            {
+                id: 10,
+                name: "Нариманова",
+                owner: "ИП Гуков Денис Иванович",
+                inn: "616111710000",
+                address: "Ростов-на-Дону, Нагибина 40Б, оф.308",
+                bankDetails: "40802810600000548499, АО «ТБанк», БИК 044525974",
+                cashRegister: "нет данных",
+                accountant: "нет данных",
+                roscomnadzor: "нет данных",
+                rosfinmonitoring: "нет данных",
+                agents: 10,
+                admin: "нет данных",
+                lastVisit: "10/24/25",
+                hasOffice: "нет данных"
+            },
+            {
+                id: 11,
+                name: "Домиан офис Даниловых",
+                owner: "ИП Данилова Ольга Георгиевна",
+                inn: "614603129156",
+                address: "Ростов-на-Дону, Сальский 101, офис 121",
+                bankDetails: "р/с 40802810952090106690 Юго-Западный банк ПАО Сбербанк",
+                cashRegister: "нет",
+                accountant: "да",
+                roscomnadzor: "да",
+                rosfinmonitoring: "да",
+                agents: 4,
+                admin: "нет",
+                lastVisit: "нет данных",
+                hasOffice: "да"
+            },
+            {
+                id: 12,
+                name: "Домиан Уютный Дом",
+                owner: "ИП Дудка Павел Сергеевич",
+                inn: "611301324959",
+                address: "Ростов-на-Дону, Мечникова 114/134 оф 210",
+                bankDetails: "р/с 408028102520900090820 Юго-Западный банк ПАО Сбербанк",
+                cashRegister: "нет данных",
+                accountant: "нет данных",
+                roscomnadzor: "нет данных",
+                rosfinmonitoring: "нет данных",
+                agents: "нет данных",
+                admin: "нет данных",
+                lastVisit: "нет данных",
+                hasOffice: "нет данных"
+            },
+            {
+                id: 13,
+                name: "Батайск Южный",
+                owner: "ИП Ефремова Наталья Вячеславовна",
+                inn: "614901636754",
+                address: "Батайск Почтовая 202-204",
+                bankDetails: "р/с 40802810026400001476 Филиал \"Ростовский\" АО \"Альфа-Банк\"",
+                cashRegister: "да",
+                accountant: "да",
+                roscomnadzor: "да",
+                rosfinmonitoring: "да",
+                agents: 5,
+                admin: "нет",
+                lastVisit: "11/18/25",
+                hasOffice: "да"
+            },
+            {
+                id: 14,
+                name: "Домиан Малиновского",
+                owner: "ИП Заичкин Иван Николаевич",
+                inn: "611804206430",
+                address: "Ростов-на-Дону, ул. Малиновского, 46а/27 оф. 24",
+                bankDetails: "р/с 40802810300000417796 ООО Озон Банк БИК 044525068",
+                cashRegister: "нет",
+                accountant: "да",
+                roscomnadzor: "нет",
+                rosfinmonitoring: "нет",
+                agents: 19,
+                admin: "да",
+                lastVisit: "9/26/25",
+                hasOffice: "да"
+            },
+            {
+                id: 15,
+                name: "ВектоР Домиан",
+                owner: "ИП Биджиева Анна Александровна",
+                inn: "612701340763",
+                address: "Ростов-на-Дону, Зорге, 17 оф 2",
+                bankDetails: "р/с 40802810952090075420 Юго-Западный Банк ПАО Сбербанк",
+                cashRegister: "да",
+                accountant: "да",
+                roscomnadzor: "да",
+                rosfinmonitoring: "да",
+                agents: 11,
+                admin: "нет",
+                lastVisit: "нет данных",
+                hasOffice: "да"
+            },
+            {
+                id: 16,
+                name: "Новочеркасск 2",
+                owner: "ИП Зеленьков Александр Михайлович",
+                inn: "61490663404",
+                address: "Новочеркасск, Народная 1 оф 114",
+                bankDetails: "Расчётный счёт: 40802 810 1 5209 0109374 ЮГО-ЗАПАДНЫЙ БАНК ПАО СБЕРБАНК",
+                cashRegister: "нет данных",
+                accountant: "нет данных",
+                roscomnadzor: "нет данных",
+                rosfinmonitoring: "нет данных",
+                agents: 28,
+                admin: "нет данных",
+                lastVisit: "нет данных",
+                hasOffice: "нет данных"
+            },
+            {
+                id: 17,
+                name: "Домиан Сельмаш",
+                owner: "ИП Зеленьков Александр Михайлович",
+                inn: "61490663404",
+                address: "Ростов-на-Дону, 1-й конной армии 13в офис 22",
+                bankDetails: "Расчётный счёт: 40802 810 1 5209 0109374 ЮГО-ЗАПАДНЫЙ БАНК ПАО СБЕРБАНК",
+                cashRegister: "нет данных",
+                accountant: "нет данных",
+                roscomnadzor: "нет данных",
+                rosfinmonitoring: "нет данных",
+                agents: 28,
+                admin: "нет данных",
+                lastVisit: "нет данных",
+                hasOffice: "нет данных"
+            },
+            {
+                id: 18,
+                name: "Домиан Северный-3",
+                owner: "ИП Кивва Ирина Васильевна",
+                inn: "615000646692",
+                address: "344092 г.Ростов-на-Дону, пр.Космонавтов 31В/21В, 3 этаж, офис 30",
+                bankDetails: "Расчетный счет: 40802810200000000829 ПАО КБ \"СЕЛЬМАШБАНК\" БИК: 046015860",
+                cashRegister: "да",
+                accountant: "да",
+                roscomnadzor: "нет",
+                rosfinmonitoring: "да",
+                agents: 9,
+                admin: "да",
+                lastVisit: "9/24/25",
+                hasOffice: "да"
+            },
+            {
+                id: 19,
+                name: "Суворовский 2",
+                owner: "ИП Князева Лариса Александровна",
+                inn: "612400841004",
+                address: "Ростов-на-Дону, Петренко 18",
+                bankDetails: "р/с 40802810352090426543 ПАО Сбербанк г. Ростов-на-Дону",
+                cashRegister: "да",
+                accountant: "да",
+                roscomnadzor: "да",
+                rosfinmonitoring: "да",
+                agents: 4,
+                admin: "да",
+                lastVisit: "нет данных",
+                hasOffice: "да"
+            },
+            {
+                id: 20,
+                name: "ЛеМар Вересаево",
+                owner: "ИП Козлова Елена Александровна",
+                inn: "616610539710",
+                address: "Ростов-на-Дону, ул. Берберовская, 2/101, стр 2 оф. 12",
+                bankDetails: "р/с 40802810000005065263 АО ТБанк г.Москва, БИК 044525974",
+                cashRegister: "нет данных",
+                accountant: "нет данных",
+                roscomnadzor: "нет данных",
+                rosfinmonitoring: "нет данных",
+                agents: "нет данных",
+                admin: "нет данных",
+                lastVisit: "нет данных",
+                hasOffice: "нет данных"
+            },
+            {
+                id: 21,
+                name: "Домиан Эксперт",
+                owner: "ИП Котовская Ольга Андреевна",
+                inn: "616603300375",
+                address: "Ростов-на-Дону, ул. Б. Садовая, 162/70, кв 7",
+                bankDetails: "р/с 40802810452090088221 Юго-Западный банк ПАО Сбербанк",
+                cashRegister: "да",
+                accountant: "да",
+                roscomnadzor: "да",
+                rosfinmonitoring: "да",
+                agents: 13,
+                admin: "да",
+                lastVisit: "нет данных",
+                hasOffice: "да"
+            },
+            {
+                id: 22,
+                name: "Домиан Рантье",
+                owner: "ИП Кравцов Андрей Федорович",
+                inn: "615490300115",
+                address: "Ростов-на-Дону, ул. Красноармейская, 121",
+                bankDetails: "Р/с 40802810000000123278 АО «ТБанк» БИК 044525974",
+                cashRegister: "нет данных",
+                accountant: "да",
+                roscomnadzor: "нет данных",
+                rosfinmonitoring: "нет данных",
+                agents: 1,
+                admin: "нет данных",
+                lastVisit: "нет данных",
+                hasOffice: "нет данных"
+            },
+            {
+                id: 23,
+                name: "Новочеркасск 1",
+                owner: "ИП Лебедев Никита Сергеевич",
+                inn: "615015517925",
+                address: "Новочеркасск, пр-т Платовский, 92",
+                bankDetails: "р/с 40802810000000185588 АО \"Т-БАНК\" БИК 044525974",
+                cashRegister: "да",
+                accountant: "да",
+                roscomnadzor: "нет",
+                rosfinmonitoring: "да",
+                agents: 45,
+                admin: "да",
+                lastVisit: "нет данных",
+                hasOffice: "да"
+            },
+            {
+                id: 24,
+                name: "Севастополь",
+                owner: "ИП Бородина Наталья Витальевна",
+                inn: "612501184468",
+                address: "Севастополь, ул. Астана Кесаева, д. 3б, 4 этаж, офис 25",
+                bankDetails: "р/с 40802810000000185588 АО \"Т-БАНК\" БИК 044525974",
+                cashRegister: "нет данных",
+                accountant: "нет",
+                roscomnadzor: "нет данных",
+                rosfinmonitoring: "нет данных",
+                agents: "нет данных",
+                admin: "нет данных",
+                lastVisit: "нет данных",
+                hasOffice: "нет данных"
+            },
+            {
+                id: 25,
+                name: "Западный Алмаз",
+                owner: "ИП Лобань Илона Сергеевна",
+                inn: "263013312006",
+                address: "Ростов-на-Дону, Стачки 188",
+                bankDetails: "Расчётный счёт: 40802810452090449129 ЮГО-ЗАПАДНЫЙ БАНК ПАО СБЕРБАНК",
+                cashRegister: "нет данных",
+                accountant: "да",
+                roscomnadzor: "нет данных",
+                rosfinmonitoring: "нет данных",
+                agents: 8,
+                admin: "нет данных",
+                lastVisit: "нет данных",
+                hasOffice: "нет данных"
+            },
+            {
+                id: 26,
+                name: "Домиан Нагибина",
+                owner: "ИП Марков Алексей Владимирович",
+                inn: "616107282175",
+                address: "Ростов-на-Дону, Нагибина 23",
+                bankDetails: "Номер счета: 40802810326080004551, ФИЛИАЛ \"РОСТОВСКИЙ\" АО \"АЛЬФА-БАНК\"",
+                cashRegister: "да",
+                accountant: "нет",
+                roscomnadzor: "нет",
+                rosfinmonitoring: "нет",
+                agents: 3,
+                admin: "нет",
+                lastVisit: "9/24/25",
+                hasOffice: "нет"
+            },
+            {
+                id: 27,
+                name: "Аксай",
+                owner: "ИП Приходченко Ирина Леонидовна",
+                inn: "613203719423",
+                address: "Аксай, Ленина, 41",
+                bankDetails: "Расчетный счет: 40802810227050000386 Филиал «Центральный» Банка ВТБ (ПАО)",
+                cashRegister: "нет данных",
+                accountant: "да",
+                roscomnadzor: "нет данных",
+                rosfinmonitoring: "нет данных",
+                agents: "нет данных",
+                admin: "нет данных",
+                lastVisit: "нет данных",
+                hasOffice: "нет данных"
+            },
+            {
+                id: 28,
+                name: "Домиан ЛегеАртис",
+                owner: "ИП Приходченко Ирина Леонидовна",
+                inn: "613203719423",
+                address: "пос. верхнетемерницкий, ул. обсерваторная, 104/1, оф. 15",
+                bankDetails: "Расчетный счет: 40802810227050000386 Филиал «Центральный» Банка ВТБ (ПАО)",
+                cashRegister: "нет данных",
+                accountant: "да",
+                roscomnadzor: "нет данных",
+                rosfinmonitoring: "нет данных",
+                agents: "нет данных",
+                admin: "нет данных",
+                lastVisit: "нет данных",
+                hasOffice: "нет данных"
+            },
+            {
+                id: 29,
+                name: "Ленинаван",
+                owner: "ИП Приходченко Ирина Леонидовна",
+                inn: "613203719423",
+                address: "Ростов-на-Дону, шаумяна, 1е",
+                bankDetails: "Расчетный счет: 40802810227050000386 Филиал «Центральный» Банка ВТБ (ПАО)",
+                cashRegister: "нет данных",
+                accountant: "да",
+                roscomnadzor: "нет данных",
+                rosfinmonitoring: "нет данных",
+                agents: "нет данных",
+                admin: "нет данных",
+                lastVisit: "нет данных",
+                hasOffice: "нет данных"
+            },
+            {
+                id: 30,
+                name: "Янтарный",
+                owner: "ИП Приходченко Ирина Леонидовна",
+                inn: "613203719423",
+                address: "Камышеваха, платиновая 10/26",
+                bankDetails: "Расчетный счет: 40802810227050000386 Филиал «Центральный» Банка ВТБ (ПАО)",
+                cashRegister: "нет данных",
+                accountant: "да",
+                roscomnadzor: "нет данных",
+                rosfinmonitoring: "нет данных",
+                agents: "нет данных",
+                admin: "нет данных",
+                lastVisit: "нет данных",
+                hasOffice: "нет данных"
+            },
+            {
+                id: 31,
+                name: "Домиан Риелт",
+                owner: "ИП Молчанов Андрей Владимирович",
+                inn: "616602237568",
+                address: "Туполева 16е офис 523",
+                bankDetails: "40802810326000019076 ФИЛИАЛ Ростовский АО Альфа-Банк БИК 046015207",
+                cashRegister: "нет",
+                accountant: "да",
+                roscomnadzor: "да",
+                rosfinmonitoring: "да",
+                agents: 1,
+                admin: "нет",
+                lastVisit: "9/24/25",
+                hasOffice: "да"
+            },
+            {
+                id: 33,
+                name: "Домиан Верхняя Александровка",
+                owner: "ИП Некрасова Юлия Петровна",
+                inn: "616511782591",
+                address: "Ростов-на-Дону, 40 лет победы 156/7",
+                bankDetails: "р/с 40817810500017509121 в АО «Тинькофф Банк» БИК 044525974",
+                cashRegister: "нет данных",
+                accountant: "нет данных",
+                roscomnadzor: "нет данных",
+                rosfinmonitoring: "нет данных",
+                agents: 1,
+                admin: "нет данных",
+                lastVisit: "9/20/25",
+                hasOffice: "нет данных"
+            },
+            {
+                id: 34,
+                name: "Золотой квадрат",
+                owner: "ИП Немченко Вадим Вадимович",
+                inn: "616802670941",
+                address: "Ростов-на-Дону, малиновского 66/1",
+                bankDetails: "40802810052090075236 ЮГО-ЗАПАДНЫЙ БАНК ПАО СБЕРБАНК БИК 046015602",
+                cashRegister: "нет данных",
+                accountant: "нет данных",
+                roscomnadzor: "нет данных",
+                rosfinmonitoring: "нет данных",
+                agents: 3,
+                admin: "нет данных",
+                lastVisit: "нет данных",
+                hasOffice: "нет данных"
+            },
+            {
+                id: 35,
+                name: "Азов Первый",
+                owner: "ИП Немченко Вадим Вадимович",
+                inn: "616802670941",
+                address: "г. Азов, Петровский бульвар, 20/27",
+                bankDetails: "40802810052090075236 ЮГО-ЗАПАДНЫЙ БАНК ПАО СБЕРБАНК БИК 046015602",
+                cashRegister: "нет данных",
+                accountant: "нет данных",
+                roscomnadzor: "нет данных",
+                rosfinmonitoring: "нет данных",
+                agents: 3,
+                admin: "нет данных",
+                lastVisit: "нет данных",
+                hasOffice: "нет данных"
+            },
+            {
+                id: 36,
+                name: "Капитал",
+                owner: "ИП Обдул Алла Михайловна",
+                inn: "526104307869",
+                address: "Ростов-на-Дону Подвойского 58 / 85",
+                bankDetails: "40802810520000552759 ООО Точка Банк БИК 044525104",
+                cashRegister: "да",
+                accountant: "да",
+                roscomnadzor: "да",
+                rosfinmonitoring: "да",
+                agents: 0,
+                admin: "да",
+                lastVisit: "10/23/25",
+                hasOffice: "да"
+            },
+            {
+                id: 37,
+                name: "Западный 2",
+                owner: "ИП Панасенко Артем Юрьевич",
+                inn: "614807776440",
+                address: "Ростов-на-Дону, Зорге, 64б",
+                bankDetails: "рс 40802810101000012117 ГРКЦ ГУ ЦБ РФ РО БИК 041806715",
+                cashRegister: "нет данных",
+                accountant: "нет данных",
+                roscomnadzor: "нет данных",
+                rosfinmonitoring: "нет данных",
+                agents: "нет данных",
+                admin: "нет данных",
+                lastVisit: "нет данных",
+                hasOffice: "нет данных"
+            },
+            {
+                id: 38,
+                name: "Домиан Премьер",
+                owner: "ИП Панасенко Артем Юрьевич",
+                inn: "614807776440",
+                address: "Ростов-на-Дону, ул. М. Горького, 120, оф. 22",
+                bankDetails: "рс 40802810101000012117 ГРКЦ ГУ ЦБ РФ РО БИК 041806715",
+                cashRegister: "нет данных",
+                accountant: "нет данных",
+                roscomnadzor: "нет данных",
+                rosfinmonitoring: "нет данных",
+                agents: "нет данных",
+                admin: "нет данных",
+                lastVisit: "9/20/25",
+                hasOffice: "нет данных"
+            },
+            {
+                id: 39,
+                name: "Батайск 1",
+                owner: "ИП Панасенко Артем Юрьевич",
+                inn: "614807776440",
+                address: "Батайск, энгельса 188",
+                bankDetails: "рс 40802810101000012117 ГРКЦ ГУ ЦБ РФ РО БИК 041806715",
+                cashRegister: "нет данных",
+                accountant: "нет данных",
+                roscomnadzor: "нет данных",
+                rosfinmonitoring: "нет данных",
+                agents: "нет данных",
+                admin: "нет данных",
+                lastVisit: "10/24/24",
+                hasOffice: "нет данных"
+            },
+            {
+                id: 40,
+                name: "Домиан Лермонт",
+                owner: "ИП Рубежанская Кристина",
+                inn: "нет данных",
+                address: "Ростов на Дону, ул. Лермонтовская, 102",
+                bankDetails: "40802 810 4 5209 0016950 ЮГО-ЗАПАДНЫЙ БАНК ПАО СБЕРБАНК БИК 046015602",
+                cashRegister: "нет",
+                accountant: "да",
+                roscomnadzor: "да",
+                rosfinmonitoring: "да",
+                agents: 1,
+                admin: "нет",
+                lastVisit: "нет данных",
+                hasOffice: "да"
+            },
+            {
+                id: 41,
+                name: "Новочеркасск Октябрьский",
+                owner: "ИП Лебедев Никита Сергеевич",
+                inn: "615015517925",
+                address: "Новочеркасск, калинина 65б",
+                bankDetails: "р/с 40802810000000185588 АО \"Т-БАНК\" БИК 044525974",
+                cashRegister: "нет данных",
+                accountant: "да",
+                roscomnadzor: "нет данных",
+                rosfinmonitoring: "нет данных",
+                agents: "нет данных",
+                admin: "нет данных",
+                lastVisit: "нет данных",
+                hasOffice: "нет данных"
+            },
+            {
+                id: 42,
+                name: "Первомайский",
+                owner: "ИП Скворцова Елена Юрьевна",
+                inn: "612401877081",
+                address: "Ростов-на-Дону, Лелюшенко 1",
+                bankDetails: "Расчётный счёт: 40802810252090018378 ЮГО-ЗАПАДНЫЙ БАНК ПАО СБЕРБАНК",
+                cashRegister: "нет данных",
+                accountant: "нет данных",
+                roscomnadzor: "нет данных",
+                rosfinmonitoring: "нет данных",
+                agents: "нет данных",
+                admin: "нет данных",
+                lastVisit: "10/24/24",
+                hasOffice: "нет данных"
+            },
+            {
+                id: 43,
+                name: "Меркурий",
+                owner: "ИП Скрыпникова Наталья Федоровна",
+                inn: "90103100798",
+                address: "Ростов-на-Дону, Коммунистический 25",
+                bankDetails: "р/с 40802810700000910848 ООО \"ОЗОН Банк\" г. Москва БИК 044525068",
+                cashRegister: "нет",
+                accountant: "нет",
+                roscomnadzor: "да",
+                rosfinmonitoring: "да",
+                agents: 22,
+                admin: "нет",
+                lastVisit: "11/26/25",
+                hasOffice: "да"
+            },
+            {
+                id: 44,
+                name: "Офис на Пушкинской",
+                owner: "ИП Смехнова Оксана Александровна",
+                inn: "616715303416",
+                address: "Ростов-на-Дону, пушкинская 206",
+                bankDetails: "р/с 40802810052090023042 юго-западный банк пао сбербанк БИК 046015602",
+                cashRegister: "нет данных",
+                accountant: "да",
+                roscomnadzor: "нет данных",
+                rosfinmonitoring: "нет данных",
+                agents: 1,
+                admin: "нет данных",
+                lastVisit: "10/24/24",
+                hasOffice: "нет данных"
+            },
+            {
+                id: 45,
+                name: "Домиан Свердловск ЛНР",
+                owner: "Теплинский Сергей",
+                inn: "345933334847",
+                address: "временно без офиса",
+                bankDetails: "нет данных",
+                cashRegister: "нет данных",
+                accountant: "нет данных",
+                roscomnadzor: "нет данных",
+                rosfinmonitoring: "нет данных",
+                agents: 1,
+                admin: "нет данных",
+                lastVisit: "нет данных",
+                hasOffice: "нет данных"
+            },
+            {
+                id: 46,
+                name: "Домиан Волгодонск Первый",
+                owner: "ИП Теркин Валерий Владимирович",
+                inn: "614301274189",
+                address: "Волгодонск, Энтузиастов 26б",
+                bankDetails: "р/с 40802810752090046727 Юго-Западный банк ПАО Сбербанк БИК 046015602",
+                cashRegister: "да",
+                accountant: "да",
+                roscomnadzor: "да",
+                rosfinmonitoring: "да",
+                agents: 16,
+                admin: "нет",
+                lastVisit: "нет данных",
+                hasOffice: "да"
+            },
+            {
+                id: 47,
+                name: "Западный Олимп",
+                owner: "ИП Теркин Валерий Владимирович",
+                inn: "614301274189",
+                address: "Ростов-на-Дону, ул. Зорге 11",
+                bankDetails: "р/с 40802810752090046727 Юго-Западный банк ПАО Сбербанк БИК 046015602",
+                cashRegister: "да",
+                accountant: "да",
+                roscomnadzor: "да",
+                rosfinmonitoring: "да",
+                agents: 16,
+                admin: "нет",
+                lastVisit: "нет данных",
+                hasOffice: "да"
+            },
+            {
+                id: 48,
+                name: "Домиан Белая Калитва",
+                owner: "ИП Титовский Роман Станиславович",
+                inn: "614211438308",
+                address: "г. Белая Калитва, ул. Калинина, 2",
+                bankDetails: "р/с 40802810852090008487 Юго-Западный банк ПАО Сбербанк г. Белая Калитва",
+                cashRegister: "нет данных",
+                accountant: "нет данных",
+                roscomnadzor: "нет данных",
+                rosfinmonitoring: "нет данных",
+                agents: 6,
+                admin: "нет данных",
+                lastVisit: "нет данных",
+                hasOffice: "нет данных"
+            },
+            {
+                id: 49,
+                name: "Домиан Каменск-Шахтинский",
+                owner: "ИП Титовский Роман Станиславович",
+                inn: "614211438308",
+                address: "Каменск-Шахтинский, ул. Ворошилова 13",
+                bankDetails: "р/с 40802810852090008487 Юго-Западный банк ПАО Сбербанк г. Белая Калитва",
+                cashRegister: "нет данных",
+                accountant: "нет данных",
+                roscomnadzor: "нет данных",
+                rosfinmonitoring: "нет данных",
+                agents: 6,
+                admin: "нет данных",
+                lastVisit: "нет данных",
+                hasOffice: "нет данных"
+            },
+            {
+                id: 50,
+                name: "Домиан Миллерово",
+                owner: "ИП Титовский Роман Станиславович",
+                inn: "614211438308",
+                address: "Миллерово, Ул. Российская 59",
+                bankDetails: "р/с 40802810852090008487 Юго-Западный банк ПАО Сбербанк г. Белая Калитва",
+                cashRegister: "нет данных",
+                accountant: "нет данных",
+                roscomnadzor: "нет данных",
+                rosfinmonitoring: "нет данных",
+                agents: 6,
+                admin: "нет данных",
+                lastVisit: "нет данных",
+                hasOffice: "нет данных"
+            },
+            {
+                id: 51,
+                name: "Шахты Результат+",
+                owner: "ИП Титовский Роман Станиславович",
+                inn: "614211438308",
+                address: "г. Шахты, Шевченко 125А",
+                bankDetails: "р/с 40802810852090008487 Юго-Западный банк ПАО Сбербанк г. Белая Калитва",
+                cashRegister: "нет данных",
+                accountant: "нет данных",
+                roscomnadzor: "нет данных",
+                rosfinmonitoring: "нет данных",
+                agents: 6,
+                admin: "нет данных",
+                lastVisit: "нет данных",
+                hasOffice: "нет данных"
+            },
+            {
+                id: 52,
+                name: "Домиан Стачки",
+                owner: "ИП Андреева Наталья Васильевна",
+                inn: "614210181628",
+                address: "Ростов-на-Дону, стачки 210",
+                bankDetails: "40802810409600000092 ПАО КБ «Центр -Инвест»",
+                cashRegister: "нет данных",
+                accountant: "да",
+                roscomnadzor: "нет данных",
+                rosfinmonitoring: "нет данных",
+                agents: "нет данных",
+                admin: "нет данных",
+                lastVisit: "11/28/25",
+                hasOffice: "нет данных"
+            },
+            {
+                id: 53,
+                name: "Домиан Первые Соловушки",
+                owner: "ИП Червоная Елена Алексеевна",
+                inn: "220909657200",
+                address: "Ростов-на-Дону, вятская 57",
+                bankDetails: "р/с 40802810352740004930 Юго-Западный банк ПАО Сбербанк БИК 046015602",
+                cashRegister: "да",
+                accountant: "нет",
+                roscomnadzor: "да",
+                rosfinmonitoring: "да",
+                agents: 30,
+                admin: "да",
+                lastVisit: "9/20/25",
+                hasOffice: "да"
+            },
+            {
+                id: 54,
+                name: "Домиан Кристалл",
+                owner: "ИП Чумакова Лариса Геннадиевна",
+                inn: "615511722600",
+                address: "Ростов-на-Дону, ЖК Екатерининский, Магнитогорская 1а",
+                bankDetails: "р/с 40802810852090424401 в Юго-Западном банке ПАО Сбербанк БИК 046015602",
+                cashRegister: "да",
+                accountant: "да",
+                roscomnadzor: "нет",
+                rosfinmonitoring: "нет",
+                agents: 9,
+                admin: "да",
+                lastVisit: "нет данных",
+                hasOffice: "да"
+            },
+            {
+                id: 55,
+                name: "Западный 5",
+                owner: "ИП Чуносов Михаил Сергеевич",
+                inn: "616117980098",
+                address: "Ростов-на-Дону, Зорге 56",
+                bankDetails: "р/с 40802810826140001499 ФИЛИАЛ \"РОСТОВСКИЙ\" АО \"АЛЬФА-БАНК\" БИК 046015207",
+                cashRegister: "нет",
+                accountant: "да",
+                roscomnadzor: "да",
+                rosfinmonitoring: "да",
+                agents: 5,
+                admin: "да",
+                lastVisit: "нет данных",
+                hasOffice: "да"
+            },
+            {
+                id: 56,
+                name: "Горизонт",
+                owner: "ИП Чуприна Екатерина Викторовна",
+                inn: "616113019969",
+                address: "Ростов-на-Дону, Ларина 45 ст 2",
+                bankDetails: "р/с 40802810052740003095 Юго-Западный банк ПАО Сбербанк БИК 046015602",
+                cashRegister: "да",
+                accountant: "да",
+                roscomnadzor: "нет",
+                rosfinmonitoring: "да",
+                agents: 17,
+                admin: "нет",
+                lastVisit: "нет данных",
+                hasOffice: "да"
+            },
+            {
+                id: 57,
+                name: "Домиан Таганрог",
+                owner: "ИП Шаповалов Сергей Олегович",
+                inn: "615424204391",
+                address: "г. Таганрог, ул. Социалистическая, 2, оф 310",
+                bankDetails: "нет данных",
+                cashRegister: "нет данных",
+                accountant: "нет данных",
+                roscomnadzor: "нет данных",
+                rosfinmonitoring: "нет данных",
+                agents: "нет данных",
+                admin: "нет данных",
+                lastVisit: "нет данных",
+                hasOffice: "нет данных"
+            },
+            {
+                id: 58,
+                name: "Западный 11",
+                owner: "ИП Орлов Павел Викторович",
+                inn: "нет данных",
+                address: "Ростов-на-Дону, малиновского 3 «б», оф.25, 2эт",
+                bankDetails: "р/с 40802810752090008590 Юго-Западный банк ПАО Сбербанк БИК 046015602",
+                cashRegister: "нет данных",
+                accountant: "нет данных",
+                roscomnadzor: "нет данных",
+                rosfinmonitoring: "нет данных",
+                agents: "нет данных",
+                admin: "нет данных",
+                lastVisit: "нет данных",
+                hasOffice: "нет данных"
+            },
+            {
+                id: 59,
+                name: "Полёт",
+                owner: "Юдин Александр",
+                inn: "нет данных",
+                address: "Берберовская 24",
+                bankDetails: "нет данных",
+                cashRegister: "да",
+                accountant: "нет данных",
+                roscomnadzor: "нет данных",
+                rosfinmonitoring: "нет данных",
+                agents: 9,
+                admin: "нет данных",
+                lastVisit: "11/21/25",
+                hasOffice: "нет данных"
+            },
+            {
+                id: 60,
+                name: "Восточный",
+                owner: "ИП Яцык Екатерина Валентиновна",
+                inn: "616710033607",
+                address: "Ростов-на-Дону, 40лет пр. Победы 216 оф5",
+                bankDetails: "Р/с 40802810052090451025 Пао Сбербанк БИК 046015602",
+                cashRegister: "нет данных",
+                accountant: "нет данных",
+                roscomnadzor: "нет данных",
+                rosfinmonitoring: "нет данных",
+                agents: "нет данных",
+                admin: "нет данных",
+                lastVisit: "9/20/24",
+                hasOffice: "нет данных"
+            },
+            {
+                id: 61,
+                name: "Аллея Домиан",
+                owner: "ИП Лизунова Татьяна Сергеевна",
+                inn: "232704657746",
+                address: "Ростов-на-Дону, Маршала Жукова 16/6",
+                bankDetails: "рс 40802810026140006566 АО Альфа-Банк БИК 046015207",
+                cashRegister: "нет",
+                accountant: "нет",
+                roscomnadzor: "да",
+                rosfinmonitoring: "да",
+                agents: 4,
+                admin: "да",
+                lastVisit: "9/26/25",
+                hasOffice: "да"
+            },
+            {
+                id: 62,
+                name: "Домиан Кореновск",
+                owner: "ИП Глоба Оксана Николаевна",
+                inn: "233504793704",
+                address: "Г. Кореновск, ул. Красная, 23",
+                bankDetails: "РС 40802810930000475689 КРАСНОДАРСКОЕ ОТДЕЛЕНИЕ N8619 ПАО СБЕРБАНК БИК: 040349602",
+                cashRegister: "нет данных",
+                accountant: "нет",
+                roscomnadzor: "нет данных",
+                rosfinmonitoring: "нет данных",
+                agents: 1,
+                admin: "нет данных",
+                lastVisit: "9/19/25",
+                hasOffice: "нет данных"
+            },
+            {
+                id: 63,
+                name: "Домиан Феникс",
+                owner: "ИП Данилов Сергей Константинович",
+                inn: "325619600101034",
+                address: "Ростов-на-Дону, Троллейбусная 24/2В 6 эт. 617 каб.",
+                bankDetails: "РС 40802810600008234242 АО «ТБанк» БИК: 044525974",
+                cashRegister: "нет данных",
+                accountant: "нет данных",
+                roscomnadzor: "нет данных",
+                rosfinmonitoring: "нет данных",
+                agents: 1,
+                admin: "нет данных",
+                lastVisit: "10/23/25",
+                hasOffice: "нет данных"
+            },
+            {
+                id: 64,
+                name: "Комфорт",
+                owner: "ИП Дионисов Евгений Александрович",
+                inn: "616803377142",
+                address: "Ростов-на-Дону, Извилистая 17а",
+                bankDetails: "АО «ТБанк» Расчетный счет 40802810900002948522 БИК 044525974",
+                cashRegister: "да",
+                accountant: "да",
+                roscomnadzor: "да",
+                rosfinmonitoring: "да",
+                agents: 5,
+                admin: "да",
+                lastVisit: "9/26/25",
+                hasOffice: "да"
+            },
+            {
+                id: 65,
+                name: "Лайф",
+                owner: "ИП Геворкян Овсеп",
+                inn: "615527945144",
+                address: "Ростов-на-Дону, Армянская 10",
+                bankDetails: "нет данных",
+                cashRegister: "нет",
+                accountant: "нет",
+                roscomnadzor: "да",
+                rosfinmonitoring: "да",
+                agents: 1,
+                admin: "нет",
+                lastVisit: "10/23/25",
+                hasOffice: "да"
+            },
+            {
+                id: 66,
+                name: "Статус",
+                owner: "ИП Демченко Марина Анатольевна",
+                inn: "616801843849",
+                address: "нет данных",
+                bankDetails: "нет данных",
+                cashRegister: "нет данных",
+                accountant: "да",
+                roscomnadzor: "нет данных",
+                rosfinmonitoring: "нет данных",
+                agents: "нет данных",
+                admin: "нет данных",
+                lastVisit: "нет данных",
+                hasOffice: "нет данных"
             }
         ];
 
-        // Placeholder images array
         const placeholders = [
             "https://placehold.co/600x400?text=Office+1",
             "https://placehold.co/600x400?text=Office+2",
@@ -480,7 +1408,6 @@
         let currentModalOffice = null;
         let currentImageIndex = 0;
 
-        // Helper to handle empty data
         function getValue(value) {
             if (value === null || value === undefined || value === "" || value === " ") {
                 return "нет данных";
@@ -488,7 +1415,6 @@
             return value;
         }
 
-        // Render Cards
         function renderCards() {
             const grid = document.getElementById('offices-grid');
             grid.innerHTML = '';
@@ -498,7 +1424,6 @@
                 card.className = 'card';
                 card.onclick = () => openModal(index);
 
-                // Shorten address for card view
                 const shortAddress = office.address.length > 40 
                     ? office.address.substring(0, 40) + '...' 
                     : office.address;
@@ -519,10 +1444,9 @@
             });
         }
 
-        // Modal Logic
         function openModal(index) {
             currentModalOffice = officesData[index];
-            currentImageIndex = 0; // Reset image index
+            currentImageIndex = 0;
             
             const overlay = document.getElementById('modal-overlay');
             const img = document.getElementById('modal-img');
@@ -530,14 +1454,11 @@
             const owner = document.getElementById('modal-owner');
             const details = document.getElementById('modal-details');
 
-            // Set Header Info
             title.textContent = getValue(currentModalOffice.name);
             owner.textContent = getValue(currentModalOffice.owner);
             
-            // Set Initial Image
             updateGalleryImage();
 
-            // Generate Details Grid
             const fields = [
                 { label: "ИНН", value: currentModalOffice.inn },
                 { label: "Адрес офиса", value: currentModalOffice.address },
@@ -556,7 +1477,6 @@
                 const val = getValue(field.value);
                 let displayVal = val;
 
-                // Add badge styling for Yes/No fields
                 if (field.isStatus) {
                     if (val.toLowerCase() === 'да') {
                         displayVal = `<span class="status-badge status-yes">Да</span>`;
@@ -577,22 +1497,18 @@
 
             details.innerHTML = detailsHTML;
 
-            // Show Modal
             overlay.classList.add('active');
-            document.body.style.overflow = 'hidden'; // Prevent scrolling
+            document.body.style.overflow = 'hidden';
         }
 
         function closeModal() {
             const overlay = document.getElementById('modal-overlay');
             overlay.classList.remove('active');
-            document.body.style.overflow = 'auto'; // Restore scrolling
+            document.body.style.overflow = 'auto';
         }
 
-        // Gallery Logic
         function updateGalleryImage() {
             const img = document.getElementById('modal-img');
-            // Use office ID to vary the placeholder slightly or just cycle
-            // For demo, we cycle the global placeholders based on index
             img.src = placeholders[currentImageIndex]; 
         }
 
@@ -603,16 +1519,13 @@
             updateGalleryImage();
         }
 
-        // Close modal on outside click
         document.getElementById('modal-overlay').addEventListener('click', function(e) {
             if (e.target === this) {
                 closeModal();
             }
         });
 
-        // Initialize
         document.addEventListener('DOMContentLoaded', renderCards);
-
     </script>
 </body>
 </html>
